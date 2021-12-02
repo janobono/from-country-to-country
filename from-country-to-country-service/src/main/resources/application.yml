@@ -1,0 +1,23 @@
+# ===============================
+# = LOGGING
+# ===============================
+logging:
+  level:
+    sk.janobono: ${APP_LOGGING_LEVEL:debug}
+
+spring:
+  # ===============================
+  # = FILE SIZE
+  # ===============================
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 32MB
+      max-request-size: 48MB
+
+# ===============================
+# = APP
+# ===============================
+app:
+  data-link: ${APP_DATA_LINK:https://raw.githubusercontent.com/mledoze/countries/master/countries.json}

@@ -1,0 +1,27 @@
+version: '3.2'
+
+services:
+  from-country-to-country-service:
+    image: janobono/from-country-to-country-service:latest
+    restart: unless-stopped
+    environment:
+      APP_DATA_LINK: https://raw.githubusercontent.com/mledoze/countries/master/countries.json
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.from-country-to-country-service.rule=PathPrefix(`/`)
+      - traefik.http.routers.from-country-to-country-service.entrypoints=web
+      - traefik.http.services.from-country-to-country-service.loadbalancer.server.port=8080
+
+  traefik:
+    image: traefik:v2.2
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--log.level=INFO"
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
