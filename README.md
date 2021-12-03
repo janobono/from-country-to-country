@@ -73,3 +73,38 @@ docker-compose down
 |Name| Default value                                                             | Description |
 |---|---------------------------------------------------------------------------|-------------|
 |APP_DATA_LINK|https://raw.githubusercontent.com/mledoze/countries/master/countries.json| Data URL    |
+
+## example
+
+### CZE - ITA
+
+call:
+```
+curl -i -X GET -w "\n" localhost/routing/CZE/ITA
+```
+result:
+```
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Fri, 03 Dec 2021 07:11:03 GMT
+Content-Length: 29
+
+{"route":["CZE","AUT","ITA"]}
+```
+
+### Unreal origin and destination
+
+call:
+```
+curl -i -X GET -w "\n" localhost/routing/somewhere/nowhere
+```
+
+result:
+```
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Date: Fri, 03 Dec 2021 07:13:02 GMT
+Content-Length: 116
+
+{"timestamp":"2021-12-03T07:13:02.264+00:00","status":400,"error":"Bad Request","path":"/routing/somewhere/nowhere"}
+```
